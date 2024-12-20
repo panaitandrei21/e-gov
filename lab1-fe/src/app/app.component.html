@@ -1,0 +1,43 @@
+<button (click)="downloadReport()">Generate PDF Report</button>
+<div class="container mt-5">
+  <h2>Plata pașaport</h2>
+  <form (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+      <label for="fullName" class="form-label">Nume complet</label>
+      <input type="text" class="form-control" id="fullName" [(ngModel)]="fullName" name="fullName" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="cnp" class="form-label">CNP</label>
+      <input type="text" class="form-control" id="cnp" [(ngModel)]="cnp" name="cnp" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label">Adresa</label>
+      <input type="text" class="form-control" id="address" [(ngModel)]="address" name="address" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="passportType" class="form-label">Tip pașaport</label>
+      <select class="form-select" id="passportType" [(ngModel)]="passportType" name="passportType" (change)="calculateFees()" required>
+        <option [value]="null" disabled selected>Selectează un tip de pașaport</option>
+        <option [value]="50">Pașaport simplu - 50 RON</option>
+        <option [value]="100">Pașaport diplomatic - 100 RON</option>
+        <option [value]="150">Pașaport de serviciu - 150 RON</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Taxă de procesare (5%)</label>
+      <input type="text" class="form-control" [value]="processingFee | number:'1.2-2'" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Sumă totală (RON)</label>
+      <input type="text" class="form-control" [value]="totalAmount | number:'1.2-2'" readonly>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">Trimite</button>
+  </form>
+</div>
